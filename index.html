@@ -14,40 +14,42 @@
             overflow-x: hidden;
         }
 
-        /* Rain effect */
-        .rain {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .raindrop {
-            position: absolute;
-            width: 2px;
-            height: 10px;
-            background-color: #00f;
-            opacity: 0.6;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
+        /* Party poppers confetti animation */
+        @keyframes confetti {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
             }
         }
 
-        /* Add some random delays and different speeds */
-        .raindrop:nth-child(odd) {
-            animation-duration: 0.5s;
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff6347;
+            border-radius: 50%;
+            animation: confetti 2s ease-out infinite;
+            pointer-events: none;
         }
 
-        .raindrop:nth-child(even) {
-            animation-duration: 1s;
+        .confetti:nth-child(odd) {
+            background-color: #ff1493;
+            animation-duration: 2.5s;
+        }
+
+        .confetti:nth-child(even) {
+            background-color: #32cd32;
+            animation-duration: 3s;
             animation-delay: 0.3s;
+        }
+
+        .confetti:nth-child(3n) {
+            background-color: #ffda44;
+            animation-duration: 1.8s;
         }
 
         /* Header */
@@ -183,8 +185,8 @@
 </head>
 <body>
 
-    <!-- Rain effect container -->
-    <div class="rain" id="rain"></div>
+    <!-- Confetti effect container -->
+    <div id="confetti-container"></div>
 
     <div class="header">Happy Birthday, Trishaaaaa!</div>
 
@@ -203,9 +205,8 @@
 
     <!-- Gift Buttons -->
     <a href="Assets/Percy Jackson and the Lightning Thief.pdf" target="_blank"> <button class="gift-button">Gift 1</button></a>
-   <a href="Assets/Wonder.pdf" target="_blank"><button class="gift-button">Gift 2</button></a>
+    <a href="Assets/Wonder.pdf" target="_blank"><button class="gift-button">Gift 2</button></a>
     
-
     <br>
 
     <!-- Main Celebration Button -->
@@ -217,35 +218,34 @@
     </div>
 
     <script>
-        // Function to create raindrops
-        function createRaindrops() {
-            let rainContainer = document.getElementById('rain');
-            let numberOfRaindrops = 100;
+        // Function to create confetti effect
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti-container');
+            const confettiCount = 100; // Number of confetti pieces
 
-            for (let i = 0; i < numberOfRaindrops; i++) {
-                let raindrop = document.createElement('div');
-                raindrop.classList.add('raindrop');
-                
-                // Randomize position and animation speed
-                raindrop.style.left = Math.random() * 100 + 'vw'; // Random position across the viewport width
-                raindrop.style.animationDuration = Math.random() * 2 + 1 + 's'; // Random fall speed
-                raindrop.style.animationDelay = Math.random() * 2 + 's'; // Random start delay
-                
-                rainContainer.appendChild(raindrop);
+            for (let i = 0; i < confettiCount; i++) {
+                let confettiPiece = document.createElement('div');
+                confettiPiece.classList.add('confetti');
+                // Randomize the position and animation speed
+                confettiPiece.style.left = Math.random() * 100 + 'vw'; // Random position across the viewport width
+                confettiPiece.style.animationDuration = Math.random() * 2 + 2 + 's'; // Random duration
+                confettiPiece.style.animationDelay = Math.random() * 2 + 's'; // Random delay
+
+                confettiContainer.appendChild(confettiPiece);
             }
+        }
+
+        // Initialize confetti animation and opacity on page load
+        window.onload = function() {
+            createConfetti();
+            setTimeout(() => {
+                document.querySelector('.message').style.opacity = 1;
+            }, 2000);
         }
 
         // Show notification
         function showNotification() {
             alert("Happy Birthday, Trisha! 🎉🎂");
-        }
-
-        // Initialize raindrops on page load
-        window.onload = function() {
-            createRaindrops();
-            setTimeout(() => {
-                document.querySelector('.message').style.opacity = 1;
-            }, 2000);
         }
     </script>
 
