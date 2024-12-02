@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Trisha!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffebcd;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* Rain effect */
+        .rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .raindrop {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background-color: #00f;
+            opacity: 0.6;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Add some random delays and different speeds */
+        .raindrop:nth-child(odd) {
+            animation-duration: 0.5s;
+        }
+
+        .raindrop:nth-child(even) {
+            animation-duration: 1s;
+            animation-delay: 0.3s;
+        }
+
+        /* Header */
+        .header {
+            background-color: #ff6347;
+            color: white;
+            padding: 20px;
+            font-size: 2em;
+            animation: bounce 2s infinite;
+        }
+
+        .message {
+            font-size: 3em;
+            margin-top: 50px;
+            color: #ff1493;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        .quotes {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #ff6347;
+            opacity: 0;
+            animation: fadeInQuotes 3s ease-in-out forwards;
+        }
+
+        .quote {
+            font-size: 1.8em;
+            color: #ff1493;
+            margin: 10px 0;
+            animation: bounceQuote 1s infinite;
+        }
+
+        @keyframes fadeInQuotes {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceQuote {
+            0%, 100% {
+                transform: translateY(-5px);
+            }
+            50% {
+                transform: translateY(5px);
+            }
+        }
+
+        /* Buttons */
+        .button {
+            background-color: #ff1493;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 20px;
+            animation: zoomIn 1s ease-in-out;
+        }
+
+        .button:hover {
+            background-color: #ff6347;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Gift buttons */
+        .gift-button {
+            background-color: peru;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 20px;
+            animation: zoomIn 1s ease-in-out;
+        }
+
+        .gift-button:hover {
+            background-color: #228b22;
+        }
+
+        /* Friendly sign-off */
+        .signoff {
+            font-size: 1.5em;
+            color: #2f2f2f;
+            margin-top: 50px;
+            opacity: 0;
+            animation: fadeInSignoff 3s ease-in-out forwards;
+        }
+
+        @keyframes fadeInSignoff {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .header {
+                font-size: 1.5em;
+            }
+            .message {
+                font-size: 2em;
+            }
+            .button {
+                font-size: 1.2em;
+                padding: 10px 20px;
+            }
+            .quotes {
+                font-size: 1.2em;
+            }
+            .signoff {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Rain effect container -->
+    <div class="rain" id="rain"></div>
+
+    <div class="header">Happy Birthday, Trisha!</div>
+
+    <div class="message">
+        Wishing you the most colorful and joyful day ever!
+    </div>
+
+    <!-- Quotes Section -->
+    <div class="quotes">
+        <div class="quote">"The more you praise and celebrate your life, the more there is in life to celebrate."</div>
+        <div class="quote">"May your day be filled with love, laughter, and joy!"</div>
+        <div class="quote">"Life is short, so smile while you still have teeth!"</div>
+        <div class="quote">"Another year older, another year wiser. Enjoy your special day!"</div>
+        <div class="quote">"Here’s to another year of making memories with you. Happy Birthday!"</div>
+    </div>
+
+    <!-- Gift Buttons -->
+    <a href="Assets/Percy Jackson and the Lightning Thief.pdf" target="_blank"> <button class="gift-button">Gift 1</button></a>
+   <a href="Assets/Wonder.pdf" target="_blank"><button class="gift-button">Gift 2</button></a>
+    
+
+    <br>
+
+    <!-- Main Celebration Button -->
+    <button class="button" onclick="showNotification()">Click to Celebrate!</button>
+
+    <!-- Friendly Sign-off -->
+    <div class="signoff">
+        With Lots of Love, <br> Gokul Seetharaman
+    </div>
+
+    <script>
+        // Function to create raindrops
+        function createRaindrops() {
+            let rainContainer = document.getElementById('rain');
+            let numberOfRaindrops = 100;
+
+            for (let i = 0; i < numberOfRaindrops; i++) {
+                let raindrop = document.createElement('div');
+                raindrop.classList.add('raindrop');
+                
+                // Randomize position and animation speed
+                raindrop.style.left = Math.random() * 100 + 'vw'; // Random position across the viewport width
+                raindrop.style.animationDuration = Math.random() * 2 + 1 + 's'; // Random fall speed
+                raindrop.style.animationDelay = Math.random() * 2 + 's'; // Random start delay
+                
+                rainContainer.appendChild(raindrop);
+            }
+        }
+
+        // Show notification
+        function showNotification() {
+            alert("Happy Birthday, Trisha! 🎉🎂");
+        }
+
+        // Initialize raindrops on page load
+        window.onload = function() {
+            createRaindrops();
+            setTimeout(() => {
+                document.querySelector('.message').style.opacity = 1;
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
